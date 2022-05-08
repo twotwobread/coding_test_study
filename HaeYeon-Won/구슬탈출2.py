@@ -70,8 +70,6 @@ def move(n,m,data,ball,d):
 
 def solution(n,m,data,ball,d,depth):
     global result
-    a=depth
-    b=ball
     if depth>10:
         return
     temp = move(n, m, data, ball, d)
