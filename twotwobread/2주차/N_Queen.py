@@ -6,20 +6,19 @@
 #    않는다면 들어가도 괜찮은 자리가 된다.
 # 3. 그렇게 퀸의 좌표를 넣다가 좌표가 n개가 되면 카운트를 증가시킨다.
 # 풀이시간 : 1시간 - 시간 초과문제 해결에 시간을 많이 쏟음.
-def n_queen(r):
+def n_queen(i):
     global count
     if len(result) == n:
         count += 1
         return
-    for i in range(r, r+1):
-        for j in range(n):
-            for k in result:
-                if (k[0] == i or k[1] == j or (abs(k[0] - i) == abs(k[1] - j))):
-                    break
-            else:
-                result.append((i, j))
-                n_queen(i + 1)
-                result.pop()
+    for j in range(n):
+        for k in result:
+            if (k[0] == i or k[1] == j or (abs(k[0] - i) == abs(k[1] - j))):
+                break
+        else:
+            result.append((i, j))
+            n_queen(i + 1)
+            result.pop()
     return
 
 if __name__ == "__main__":
