@@ -4,7 +4,7 @@ def init(size, mtrx):
     for row in range(size):
         for col in range(size):
             if mtrx[row][col]==1:
-                headPos.append((row,col))
+                headPos.append((row,col)) #머리 위치 저장
     return headPos
 
 def move(size, mtrx, headPos):
@@ -71,11 +71,11 @@ def getHeadnTail(size, mtrx, start):
                     visited.append((x,y))
     return swap
 
-def getNext(size, mtrx, head):
+def getNext(size, mtrx, head):#꼬리부터 칸수를 세기 시작하는것을 방지
     global direction
-    for dx, dy in direction:
+    for dx, dy in direction:#헤드기준 4방향 확인
         x,y = head[0]+dx, head[1]+dy
-        if 0 <= x < size and 0 <= y < size and mtrx[x][y]==2:
+        if 0 <= x < size and 0 <= y < size and mtrx[x][y]==2: #범위내에 있고 몸통을 발견
             return (x,y)
 
 def change(size, mtrx, headPos, target):
@@ -92,17 +92,17 @@ def change(size, mtrx, headPos, target):
 
     if flag: #head가 아닌 경우
         nextRow, nextCol = getNext(size, mtrx, (headRow, headCol)) #꼬리말고 다음위치 찾아오기
-        q.append((nextRow, nextCol, 2))
+        q.append((nextRow, nextCol, 2)) #두번째칸(몸통)을 큐에 추가 -> head와 두번째 칸이 visited에 담겨있기 때문에 순방향으로 진행
         visited = [(headRow, headCol), (nextRow, nextCol)]
         while q:
             row, col, order = q.popleft()
-            if (row, col)==target: #만약 (row,col)이 공을 맞는 위치와 같다면 점수 산출
+            if (row, col)==target: #만약 (row,col)이 공을 맞는 위치와 같다면 점수 산출후 루프탈출
                 point = order**2
                 break
             for dx, dy in direction:
                 x,y = row+ dx, col+dy
                 if 0 <= x < size and 0 <= y < size and mtrx[x][y]!=0 and (x,y) not in visited:
-                    q.append((x,y, order+1))
+                    q.append((x,y, order+1)) #칸수를 하나씩 증가시켜가며 진행
                     visited.append((x,y))
 
     #머리와 꼬리 부분 변경
@@ -158,3 +158,4 @@ if __name__=="__main__":
 - 머리위치에서 탐색 하였을때 선로가 탐지되면 선로가 가득차지 않은 경우, 꼬리가 탐지되면 선로가 가득 찬 경우로 생각하여 풀이
 - 점수 계산시 꼬리부터 시작하는것을 방지하기 위하여 무조건 머리 다음칸 부터 탐색 시작
 """
+
