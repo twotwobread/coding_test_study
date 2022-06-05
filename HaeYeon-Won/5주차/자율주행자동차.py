@@ -28,7 +28,6 @@ def solution(n,m,pos, mtrx):
     q = deque([pos])
     mtrx[pos[0]][pos[1]]=-1
     while q:
-        flag = False # 자동차의 이동 여부 파악
         row, col ,d = q.popleft()
         #1. 현재 방향을 기준으로 왼쪽방향으로 회전, 한번도 가본적 없다면 해당 방향으로 전진
         for i in range(1, 5):
@@ -38,9 +37,8 @@ def solution(n,m,pos, mtrx):
             if mtrx[newRow][newCol] not in [-1,1]: #방문 or 인도가 아니라면
                 mtrx[newRow][newCol] = -1
                 q.append((newRow, newCol, newD))
-                flag = True
                 break
-        if not flag: #4방향을 봤는데 이동을 못한다면
+        else: #4방향을 봤는데 이동을 못한다면
             newD = (d+2)%4 #반대 방향
             newRow, newCol = row+direction[newD][0], col+direction[newD][1] #후진한 칸
             if mtrx[newRow][newCol]==1: #후진하려 봤는데 인도
@@ -50,8 +48,6 @@ def solution(n,m,pos, mtrx):
     result = check(mtrx)
     print(result)
     return
-
-
 
 if __name__ =="__main__":
     n,m = map(int, input().split())
