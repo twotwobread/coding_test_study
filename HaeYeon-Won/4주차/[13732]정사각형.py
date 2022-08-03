@@ -1,21 +1,16 @@
 def check(now, data):
+    count = 0
     for i in range(now[1], n):
         if data[now[0]][i]!='#':
             break
-        numCol = i
+        count+=1
 
-    for i in range(now[0], n):
-        if data[i][now[1]]!='#':
-            break
-        numRow = i
-
-    for i in range(now[0],numRow+1):
-        for j in range(now[1], numCol+1):
+    for i in range(now[0],now[0]+count):
+        for j in range(now[1], now[1]+count):
             if data[i][j]=='#':
                 data[i][j]='.'
             else:
                 return False
-
     return True
 
 def solution(round,n,data):
